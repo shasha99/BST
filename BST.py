@@ -7,7 +7,8 @@ class Node:
 class BST:
     def __init__(self):
         self.root=None
-        
+    
+    ###########################################    
     def insert(self,val):
         self.root=self._insert(self.root,val)
         
@@ -21,7 +22,7 @@ class BST:
         else:
             ptr.left=self._insert(ptr.left,val)
         return ptr
-        
+   ############################################     
     def search(self,val):
         self._search(self.root,val)
         
@@ -34,7 +35,7 @@ class BST:
             self._search(ptr.right,val)
         else:
             self._search(ptr.left,val)
-        
+    ############################################    
         
     def delete(self,val):
         self._delete(self.root,val)
@@ -56,7 +57,7 @@ class BST:
                 ptr.value=temp.value
                 ptr.right=self._delete(ptr.right,temp.value)
         return ptr
-        
+    ############################################    
     def inorder(self):
         self._inorder(self.root)
         
@@ -66,6 +67,33 @@ class BST:
             print(" "+str(ptr.value))
             self._inorder(ptr.right)
             
+    ############################################        
+    def min(self):
+        return self._min(self.root)
+        
+    def _min(self,ptr):
+        if ptr is None:
+            return None
+        elif ptr.left is None:
+            return ptr.value
+        else:
+          return self._min(ptr.left)  
+    ############################################
+    def lowestCommanAncestor(self,val1,val2):
+        temp=val1 if val1>val2 else val2
+        val2=val1+val2-temp
+        return self._lowestCommanAncestor(self.root,temp,val2)
+        
+    def _lowestCommanAncestor(self,ptr,val1,val2):
+        if ptr.value>=val2 and ptr.value<=val1:
+            return ptr.value
+        elif ptr.value > val1:
+            return self._lowestCommanAncestor(ptr.left,val1,val2)
+        else:
+            return self._lowestCommanAncestor(ptr.right,val1,val2)
+    
+    ############################################
+    
     
 def main():
     b=BST()
@@ -73,13 +101,16 @@ def main():
     b.insert(10)
     b.insert(30)
     b.delete(10)
-    b.inorder()
     b.insert(5)
     b.insert(6)
-    b.inorder()
     b.insert(35)
     b.delete(30)
-    b.inorder()
     b.insert(15)
+    b.insert(3)
+    b.insert(4)
+    b.insert(2)
     b.inorder()
+    print b.lowestCommanAncestor(20,35)
+    print b.lowestCommanAncestor(5,6)
+    print b.lowestCommanAncestor(2,4)
 main()
