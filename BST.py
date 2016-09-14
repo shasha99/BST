@@ -95,6 +95,25 @@ class BST:
     ############################################
     
     
+    # Ques: 111 Binary Tree
+    ############################################
+    def findMaxPath(self):
+        return self.maxPath(self.root)[0]
+    
+    def maxPath(self,root):
+        if root is None:
+            return (0,0)
+        max1, left = self.maxPath(root.left)
+        max2, right = self.maxPath(root.right)
+        
+        maximum = max(max1,max2)
+        
+        sub_val = max(max(left,right)+root.value,root.value)
+        return (max(maximum,sub_val,left+right+root.value),sub_val)
+    ############################################
+    
+    
+    
 def main():
     b=BST()
     b.insert(20)
