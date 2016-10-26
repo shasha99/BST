@@ -1,2 +1,2 @@
 # BST
-Binary search tree library implemented in python
+Binary search tree library implemented in C++.
